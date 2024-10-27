@@ -22,15 +22,13 @@ public class CourController {
     private ICoursService coursService = new CoursService();
 
     @GetMapping(name = "cours", value ="/")
-    public String showCours(Model model) {
+    public String getCours(Model model) {
 
         try {
             Optional<List<CoursDto>> cours = coursService.findAll();
             if (cours.isPresent()) {
-                logger.info("Liste des cours récupérée avec succès");
                 model.addAttribute("coursList", cours.get());
             } else {
-                logger.info("Aucun produit trouvé");
                 model.addAttribute("coursList", new ArrayList<CoursDto>());
             }
         } catch (Exception e) {
@@ -41,7 +39,7 @@ public class CourController {
     }
 
     @PostMapping("/cours")
-    public String saveProduct(
+    public String addCours(
             @RequestParam("matiere") String matiere,
             @RequestParam("professeur") String professeur,
             @RequestParam("classe") String classe)
